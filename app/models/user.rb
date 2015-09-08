@@ -6,5 +6,6 @@ class User < ActiveRecord::Base
          :confirmable, :lockable, :timeoutable
 
   has_many :favorites
+  has_many :favorite_teams, :through => :favorites, :source => :team
 
 end

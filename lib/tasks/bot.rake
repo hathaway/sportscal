@@ -1,7 +1,8 @@
+require 'kimono'
+
 desc "This task crawls all teams and saves them to the database."
 namespace :bot do
 	task :crawl_teams => :environment do
-		require 'kimono'
 		k = Kimono.new
 		results = k.teams
 
@@ -26,5 +27,10 @@ namespace :bot do
 				puts "Skipped #{team["name"]["text"]}"
 			end
 		end
+	end
+
+	task :crawl_rankings => :environment do
+
+
 	end
 end

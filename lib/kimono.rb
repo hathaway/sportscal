@@ -10,4 +10,8 @@ class Kimono
     self.class.get("/api/41odwxqc", @options)
   end
 
+  def rankings
+    self.class.get("/api/cr5f4d4k", @options)
+  end
+
 end
