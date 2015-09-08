@@ -30,7 +30,19 @@ namespace :bot do
 	end
 
 	task :crawl_rankings => :environment do
+		k = Kimono.new
+		results = k.rankings
 
+		ap_rankings = results["results"]["ap"]
+		Team.update_all :ap_rank => nil
+		ap_rankings.each do |ranking|
+			Team.update_ranking(ranking["team"]["text"], :ap_rank, ranking["rank"].sub(".", "").to_i)
+		end
 
+		ap_rankings = results["results"]["coaches"]
+		Team.update_all :coaches_rank => nil
+		ap_rankings.each do |ranking|
+			Team.update_ranking(ranking["team"]["text"], :coaches_rank, ranking["index"]-25)
+		end
 	end
 end
