@@ -33,13 +33,14 @@ class CalendarController < ApplicationController
       home_rank = game["home team"]["text"].match(/^\d*/)[0]
       visitor_rank = game["visitor team"]["text"].match(/^\d*/)[0]
 
+      # top 25 matchup
       unless home_rank == "" or visitor_rank == ""
-        # top 25 matchup
         include_game = true
       end
 
-      if game["home team"]["text"].include?("Notre Dame") or game["home team"]["text"].include?("Ohio St")
-        #favorites
+      #favorites
+      if game["home team"]["text"].include?("Notre Dame") or game["home team"]["text"].include?("Ohio St") or
+        game["visitor team"]["text"].include?("Notre Dame") or game["visitor team"]["text"].include?("Ohio St")
         include_game = true
       end
 
