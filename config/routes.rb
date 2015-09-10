@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'calendar' => 'calendar#index'
+
   get 'home/index'
 
   devise_for :users

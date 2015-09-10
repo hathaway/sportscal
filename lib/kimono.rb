@@ -14,4 +14,18 @@ class Kimono
     self.class.get("/api/cr5f4d4k", @options)
   end
 
+  def schedule(team)
+    @options[:query][:kimpath3] = team.yahoo_slug
+    self.class.get("/api/ondemand/21almhq6", @options)
+  end
+
+  def game(slug)
+    @options[:query][:kimpath2] = slug
+    self.class.get("/api/ondemand/7o7tbq06", @options)
+  end
+
+  def top25
+    self.class.get("/api/cduozrcc", @options)
+  end
+
 end

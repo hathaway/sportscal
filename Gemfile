@@ -53,3 +53,5 @@ gem 'icalendar'
 
 # HTTP client
  gem 'httparty'
+
+ gem 'wombat'
