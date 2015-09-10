@@ -55,3 +55,7 @@ gem 'icalendar'
  gem 'httparty'
 
  gem 'wombat'
+
+ gem 'rails_12factor', group: :production
+
+ ruby "2.2.3"

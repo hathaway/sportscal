@@ -49,6 +49,4 @@ test:
 #
 production:
   <<: *default
-  database: sportscal_production
-  username: sportscal
-  password: <%= ENV['SPORTSCAL_DATABASE_PASSWORD'] %>
+  url: <%= ENV['CLEARDB_DATABASE_URL'] %>
