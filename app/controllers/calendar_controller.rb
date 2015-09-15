@@ -29,19 +29,32 @@ class CalendarController < ApplicationController
 
     games.each do |game|
       include_game = false
+      mode = params[:mode] | "all"
 
       home_rank = game["home team"]["text"].match(/^\d*/)[0]
       visitor_rank = game["visitor team"]["text"].match(/^\d*/)[0]
 
-      # top 25 matchup
-      unless home_rank == "" or visitor_rank == ""
-        include_game = true
-      end
-
       #favorites
+      is_favorite = false
       if game["home team"]["text"].include?("Notre Dame") or game["home team"]["text"].include?("Ohio St") or
         game["visitor team"]["text"].include?("Notre Dame") or game["visitor team"]["text"].include?("Ohio St")
+        is_favorite = true
+      end
+
+      is_top25 = false
+      # top 25 matchup
+      unless home_rank == "" or visitor_rank == ""
+        is_top25 = true
+      end
+
+      if mode == "all"
         include_game = true
+      elsif mode == "top25"
+        include_game = true if is_top25
+      elsif mode == "favorites"
+        include_game = true if is_favorite
+      elsif mode == "custom"
+        include_game = true if is_favorite or is_top25
       end
 
       if include_game

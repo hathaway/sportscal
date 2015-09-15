@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'calendar' => 'calendar#index'
+  get 'calendar/:mode' => 'calendar#index'
 
   get 'home/index'
 
