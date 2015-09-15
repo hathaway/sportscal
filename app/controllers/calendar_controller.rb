@@ -29,7 +29,7 @@ class CalendarController < ApplicationController
 
     games.each do |game|
       include_game = false
-      mode = params[:mode] | "all"
+      mode = params[:mode] || "all"
 
       home_rank = game["home team"]["text"].match(/^\d*/)[0]
       visitor_rank = game["visitor team"]["text"].match(/^\d*/)[0]
