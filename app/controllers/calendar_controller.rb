@@ -40,10 +40,20 @@ class CalendarController < ApplicationController
         visitor_rank = game["visitor team"]["text"].match(/^\d*/)[0]
       end
 
+      home_team = ""
+      visitor_team = ""
+
+      unless game["home team"]["text"].nil?
+        home_team = game["home team"]["text"]
+      end
+      unless game["visitor team"]["text"].nil?
+        visitor_team = game["visitor team"]["text"]
+      end
+
       #favorites
       is_favorite = false
-      if game["home team"]["text"].include?("Notre Dame") or game["home team"]["text"].include?("Ohio St") or
-        game["visitor team"]["text"].include?("Notre Dame") or game["visitor team"]["text"].include?("Ohio St")
+      if home_team.include?("Notre Dame") or home_team.include?("Ohio St") or
+        visitor_team.include?("Notre Dame") or visitor_team.include?("Ohio St")
         is_favorite = true
       end
 
@@ -63,6 +73,10 @@ class CalendarController < ApplicationController
         include_game = true if is_favorite or is_top25
       end
 
+      if home_team == "" or visitor_team == ""
+        include_game = false
+      end
+
       if include_game
         start_time = game['game time']['data-date'].to_datetime
         tz = TZInfo::Timezone.get('America/New_York')
@@ -72,7 +86,7 @@ class CalendarController < ApplicationController
         cal.event do |e|
           e.dtstart     = Icalendar::Values::DateTime.new start_time, 'tzid' => tzid
           e.dtend       = Icalendar::Values::DateTime.new end_time, 'tzid' => tzid
-          e.summary     = "#{game["visitor team"]["text"]} vs #{game["home team"]["text"]}".squish
+          e.summary     = "#{visitor_team} vs #{home_team}".squish
           e.description = "#{game["venue"]} in #{game["location"]}\n#{game["line"]}"
           e.location    = game["network"]
         end
