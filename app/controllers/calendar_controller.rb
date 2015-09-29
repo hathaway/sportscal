@@ -31,8 +31,14 @@ class CalendarController < ApplicationController
       include_game = false
       mode = params[:mode] || "all"
 
-      home_rank = game["home team"]["text"].match(/^\d*/)[0]
-      visitor_rank = game["visitor team"]["text"].match(/^\d*/)[0]
+      home_rank = ""
+      visitor_rank = ""
+      unless game["home team"]["text"].nil?
+        home_rank = game["home team"]["text"].match(/^\d*/)[0]
+      end
+      unless game["visitor team"]["text"].nil?
+        visitor_rank = game["visitor team"]["text"].match(/^\d*/)[0]
+      end
 
       #favorites
       is_favorite = false
